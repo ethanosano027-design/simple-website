@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechPro — IT Services</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111113;
+    --bg3: #1a1a1e;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.15);
+    --accent: #00e5a0;
+    --accent2: #00b8ff;
+    --text: #f0f0f0;
+    --text2: #888;
+    --text3: #555;
+    --radius: 12px;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-head);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+    color: var(--text2); text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em;
+    padding: 0.6rem 1.4rem;
+    background: var(--accent); color: #000;
+    border: none; border-radius: 6px; cursor: pointer;
+    text-transform: uppercase; text-decoration: none;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,229,160,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: 20%;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,184,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { max-width: 750px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
+    background: rgba(0,229,160,0.08); border: 1px solid rgba(0,229,160,0.2);
+    padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem;
+    letter-spacing: 0.08em;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; }
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800; line-height: 1.05; letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--text2); max-width: 520px;
+    line-height: 1.7; margin-bottom: 2.5rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.85rem 2rem; background: var(--accent); color: #000;
+    font-family: var(--font-head); font-weight: 700; font-size: 0.9rem;
+    border: none; border-radius: 8px; cursor: pointer;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-outline {
+    padding: 0.85rem 2rem; background: transparent; color: var(--text);
+    font-family: var(--font-head); font-weight: 600; font-size: 0.9rem;
+    border: 1px solid var(--border-bright); border-radius: 8px; cursor: pointer;
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+  }
+  .stat-val { font-size: 2rem; font-weight: 800; color: var(--accent); letter-spacing: -0.04em; }
+  .stat-lbl { font-size: 0.8rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+  /* SECTIONS */
+  section { padding: 5rem 3rem; }
+  .section-tag {
+    font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--text2); font-size: 1rem; max-width: 500px; margin-bottom: 3rem; }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px;
+    background: var(--border); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .service-card {
+    background: var(--bg2); padding: 2rem;
+    transition: background 0.2s;
+    position: relative;
+  }
+  .service-card:hover { background: var(--bg3); }
+  .service-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 1.2rem;
+  }
+  .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .service-card p { font-size: 0.88rem; color: var(--text2); line-height: 1.65; }
+  .service-price {
+    font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent);
+    margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--border);
+  }
+
+  /* PORTFOLIO */
+  .portfolio-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+  }
+  .portfolio-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .portfolio-card:hover { border-color: var(--border-bright); transform: translateY(-4px); }
+  .portfolio-img {
+    height: 180px; background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .portfolio-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, var(--bg2) 100%);
+  }
+  .portfolio-body { padding: 1.5rem; }
+  .portfolio-tag {
+    font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent2);
+    background: rgba(0,184,255,0.08); border: 1px solid rgba(0,184,255,0.2);
+    padding: 0.2rem 0.7rem; border-radius: 100px; letter-spacing: 0.06em;
+  }
+  .portfolio-card h3 { font-size: 1.05rem; font-weight: 700; margin: 0.8rem 0 0.4rem; }
+  .portfolio-card p { font-size: 0.85rem; color: var(--text2); }
+
+  /* REVIEWS */
+  #reviews { background: var(--bg2); }
+  .reviews-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .review-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.75rem;
+    transition: border-color 0.2s;
+  }
+  .review-card:hover { border-color: var(--border-bright); }
+  .review-stars { color: #f5c842; font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 2px; }
+  .review-text { font-size: 0.9rem; color: var(--text2); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+  .review-author { display: flex; align-items: center; gap: 10px; }
+  .review-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg3); border: 1px solid var(--border-bright);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: var(--accent);
+  }
+  .review-name { font-size: 0.88rem; font-weight: 700; }
+  .review-meta { font-size: 0.75rem; color: var(--text3); font-family: var(--font-mono); }
+
+  /* LEAVE A REVIEW FORM */
+  .review-form-wrap {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 2rem;
+  }
+  .review-form-wrap h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; }
+  .star-select { display: flex; gap: 6px; margin-bottom: 1.2rem; }
+  .star-btn {
+    font-size: 1.4rem; background: none; border: none; cursor: pointer;
+    color: var(--text3); transition: color 0.1s, transform 0.1s;
+    padding: 0;
+  }
+  .star-btn:hover, .star-btn.active { color: #f5c842; transform: scale(1.15); }
+
+  /* BOOKING */
+  #booking { background: var(--bg); }
+  .booking-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+  }
+  .booking-info h2 { margin-bottom: 1rem; }
+  .booking-features { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .booking-features li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 0.9rem; color: var(--text2);
+  }
+  .booking-features li::before {
+    content: '✓'; color: var(--accent); font-weight: 700;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* FORM STYLES */
+  .form-group { margin-bottom: 1.2rem; }
+  label { display: block; font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 0.5rem; }
+  input, select, textarea {
+    width: 100%; background: var(--bg3); color: var(--text);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 0.75rem 1rem; font-family: var(--font-head);
+    font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+  select option { background: var(--bg2); }
+  textarea { resize: vertical; min-height: 110px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .submit-btn {
+    width: 100%; padding: 1rem; background: var(--accent); color: #000;
+    font-family: var(--font-head); font-weight: 700; font-size: 1rem;
+    border: none; border-radius: 8px; cursor: pointer; letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  /* SUCCESS MSG */
+  .success-msg {
+    display: none; background: rgba(0,229,160,0.08);
+    border: 1px solid rgba(0,229,160,0.3); border-radius: 8px;
+    padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--accent);
+    margin-top: 1rem; font-family: var(--font-mono);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--bg2); border-top: 1px solid var(--border);
+    padding: 2.5rem 3rem; text-align: center;
+  }
+  .footer-logo { font-size: 1.2rem; font-weight: 800; margin-bottom: 0.5rem; }
+  .footer-logo span { color: var(--accent); }
+  footer p { font-size: 0.82rem; color: var(--text3); font-family: var(--font-mono); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    .booking-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { padding: 2rem 1.5rem; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeUp 0.6s ease forwards; opacity: 0; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+
+  /* SCROLL INDICATOR */
+  .scroll-line {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: var(--accent); z-index: 200;
+    width: 0%; transition: width 0.1s;
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-line" id="scrollLine"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⬡<span>Tech</span>Pro</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#booking">Book a Job</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Get a Quote</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-tag">Available for hire — Nairobi & Remote</div>
+    <h1>IT Solutions<br>Built to <em>Perform</em>.</h1>
+    <p class="hero-sub">Expert tech support, web development, networking, and IT consulting. From small fixes to full-scale systems — done right, done fast.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-primary">Book a Job</a>
+      <a href="#portfolio" class="btn-outline">See My Work</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">120+</div>
+        <div class="stat-lbl">Jobs Done</div>
+      </div>
+      <div>
+        <div class="stat-val">4.9★</div>
+        <div class="stat-lbl">Avg Rating</div>
+      </div>
+      <div>
+        <div class="stat-val">48h</div>
+        <div class="stat-lbl">Avg Turnaround</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">// What I Do</div>
+  <div class="section-title">Services</div>
+  <p class="section-sub">Professional IT services tailored to individuals, startups, and businesses.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Hardware Repair & Upgrade</h3>
+      <p>Laptop & desktop repair, component replacements, RAM/SSD upgrades, diagnostics and cleaning.</p>
+      <div class="service-price">From KES 1,500</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>Web Development</h3>
+      <p>Custom websites, landing pages, and web apps. Fast, mobile-first, and SEO-optimized.</p>
+      <div class="service-price">From KES 15,000</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📡</div>
+      <h3>Network Setup & Security</h3>
+      <p>Home and office network installation, router config, VPN setup, and firewall configuration.</p>
+      <div class="service-price">From KES 3,500</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💾</div>
+      <h3>Data Recovery & Backup</h3>
+      <p>Recover lost files from failed drives. Set up automated backup systems for peace of mind.</p>
+      <div class="service-price">From KES 2,500</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛡️</div>
+      <h3>Cybersecurity & Antivirus</h3>
+      <p>Malware removal, security audits, antivirus setup, and employee security training.</p>
+      <div class="service-price">From KES 2,000</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">☁️</div>
+      <h3>Cloud & IT Consulting</h3>
+      <p>Cloud migration, Google Workspace / Microsoft 365 setup, IT strategy for growing businesses.</p>
+      <div class="service-price">From KES 5,000</div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" style="background: var(--bg2);">
+  <div class="section-tag">// My Work</div>
+  <div class="section-title">Recent Projects</div>
+  <p class="section-sub">A selection of jobs and projects I've delivered for happy clients.</p>
+  <div class="portfolio-grid">
+    <div class="portfolio-card">
+      <div class="portfolio-img">🛒</div>
+      <div class="portfolio-body">
+        <span class="portfolio-tag">Web Dev</span>
+        <h3>E-Commerce Store for Retail Client</h3>
+        <p>Built a full WooCommerce store with M-Pesa integration and inventory management.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-img">🏢</div>
+      <div class="portfolio-body">
+        <span class="portfolio-tag">Networking</span>
+        <h3>Office Network for 40-Person Company</h3>
+        <p>Designed and installed structured cabling, managed switches, and enterprise Wi-Fi.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-img">📊</div>
+      <div class="portfolio-body">
+        <span class="portfolio-tag">Cloud</span>
+        <h3>Google Workspace Migration</h3>
+        <p>Migrated a 25-user company from on-prem servers to Google Workspace with zero downtime.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-img">🔒</div>
+      <div class="portfolio-body">
+        <span class="portfolio-tag">Security</span>
+        <h3>Security Audit & Hardening</h3>
+        <p>Full security assessment for an NGO — patched vulnerabilities, set up endpoint protection.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-img">💻</div>
+      <div class="portfolio-body">
+        <span class="portfolio-tag">Repair</span>
+        <h3>Bulk Laptop Refurbishment</h3>
+        <p>Refurbished and upgraded 30 laptops for a school — SSD installs, OS reinstalls, tuning.</p>
+      </div>
+    </div>
+    <div class="portfolio-card">
+      <div class="portfolio-img">🌍</div>
+      <div class="portfolio-body">
+        <span class="portfolio-tag">Web Dev</span>
+        <h3>NGO Portfolio & Donations Site</h3>
+        <p>Responsive site with donation gateway, newsletter signup, and multilingual support.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="section-tag">// Client Feedback</div>
+  <div class="section-title">Reviews</div>
+  <p class="section-sub">What people say about working with me.</p>
+  <div class="reviews-grid" id="reviewsList">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Fixed my laptop in 2 hours — I thought it was dead. Super professional, great price. Will always call TechPro first."</p>
+      <div class="review-author">
+        <div class="review-avatar">AM</div>
+        <div>
+          <div class="review-name">Amina Mwangi</div>
+          <div class="review-meta">Hardware Repair · Nairobi</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Our new website looks incredible and loads super fast. Delivered ahead of schedule and even trained my team on how to update it."</p>
+      <div class="review-author">
+        <div class="review-avatar">KO</div>
+        <div>
+          <div class="review-name">Kevin Otieno</div>
+          <div class="review-meta">Web Development · Westlands</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Set up our entire office network including the security system. Very knowledgeable and patient with our non-tech staff. Highly recommend."</p>
+      <div class="review-author">
+        <div class="review-avatar">GN</div>
+        <div>
+          <div class="review-name">Grace Njoroge</div>
+          <div class="review-meta">Network Setup · Karen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leave a Review -->
+  <div class="review-form-wrap">
+    <h3>Leave a Review</h3>
+    <div class="form-group">
+      <label>Your Rating</label>
+      <div class="star-select" id="starSelect">
+        <button class="star-btn" data-val="1">★</button>
+        <button class="star-btn" data-val="2">★</button>
+        <button class="star-btn" data-val="3">★</button>
+        <button class="star-btn" data-val="4">★</button>
+        <button class="star-btn" data-val="5">★</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="reviewName" placeholder="Jane Doe">
+      </div>
+      <div class="form-group">
+        <label>Service Used</label>
+        <select id="reviewService">
+          <option value="">Select service...</option>
+          <option>Hardware Repair & Upgrade</option>
+          <option>Web Development</option>
+          <option>Network Setup & Security</option>
+          <option>Data Recovery & Backup</option>
+          <option>Cybersecurity & Antivirus</option>
+          <option>Cloud & IT Consulting</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Your Review</label>
+      <textarea id="reviewText" placeholder="Share your experience..."></textarea>
+    </div>
+    <button class="submit-btn" onclick="submitReview()">Post Review</button>
+    <div class="success-msg" id="reviewSuccess">✓ Thank you! Your review has been posted.</div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="booking-wrap">
+    <div class="booking-info">
+      <div class="section-tag">// Get Started</div>
+      <h2 class="section-title">Book a Job</h2>
+      <p style="color: var(--text2); font-size: 0.95rem; line-height: 1.7;">Fill in the form and I'll get back to you within a few hours with a quote and available time slots.</p>
+      <ul class="booking-features">
+        <li>Free initial consultation and quote</li>
+        <li>Flexible scheduling — including evenings and weekends</li>
+        <li>On-site visits in Nairobi or fully remote support</li>
+        <li>Payment on completion — M-Pesa, bank, or cash</li>
+        <li>Satisfaction guaranteed or I'll fix it for free</li>
+      </ul>
+    </div>
+    <div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="bkFirstName" placeholder="Jane">
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="bkLastName" placeholder="Doe">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email or Phone</label>
+        <input type="text" id="bkContact" placeholder="jane@email.com or 0712 345 678">
+      </div>
+      <div class="form-group">
+        <label>Service Needed</label>
+        <select id="bkService">
+          <option value="">Choose a service...</option>
+          <option>Hardware Repair & Upgrade</option>
+          <option>Web Development</option>
+          <option>Network Setup & Security</option>
+          <option>Data Recovery & Backup</option>
+          <option>Cybersecurity & Antivirus</option>
+          <option>Cloud & IT Consulting</option>
+          <option>Other / Not Sure</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred Date</label>
+          <input type="date" id="bkDate">
+        </div>
+        <div class="form-group">
+          <label>Location / Type</label>
+          <select id="bkLocation">
+            <option value="">Select...</option>
+            <option>On-site — Nairobi</option>
+            <option>Remote / Online</option>
+            <option>Drop-off & Collect</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Describe Your Issue</label>
+        <textarea id="bkDetails" placeholder="Tell me what's going on — the more detail, the better..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitBooking()">Send Booking Request →</button>
+      <div class="success-msg" id="bookingSuccess">✓ Request received! I'll be in touch within a few hours.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">⬡<span>Tech</span>Pro</div>
+  <p style="margin-top: 0.4rem;">© 2025 TechPro IT Services · Nairobi, Kenya</p>
+  <p style="margin-top: 0.25rem; font-size: 0.75rem;">Replace placeholder details with your real name, contact, and info.</p>
+</footer>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const el = document.getElementById('scrollLine');
+    const h = document.documentElement;
+    const pct = (window.scrollY / (h.scrollHeight - h.clientHeight)) * 100;
+    el.style.width = pct + '%';
+  });
+
+  // Star rating
+  let selectedStars = 0;
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    btn.addEventListener('mouseover', function() {
+      const val = +this.dataset.val;
+      document.querySelectorAll('.star-btn').forEach((b, i) => b.classList.toggle('active', i < val));
+    });
+    btn.addEventListener('click', function() {
+      selectedStars = +this.dataset.val;
+    });
+    document.getElementById('starSelect').addEventListener('mouseleave', () => {
+      document.querySelectorAll('.star-btn').forEach((b, i) => b.classList.toggle('active', i < selectedStars));
+    });
+  });
+
+  function submitReview() {
+    const name = document.getElementById('reviewName').value.trim();
+    const service = document.getElementById('reviewService').value;
+    const text = document.getElementById('reviewText').value.trim();
+    if (!name || !service || !text || !selectedStars) {
+      alert('Please fill in all fields and select a star rating.');
+      return;
+    }
+    const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0,2);
+    const stars = '★'.repeat(selectedStars) + '☆'.repeat(5 - selectedStars);
+    const card = document.createElement('div');
+    card.className = 'review-card';
+    card.innerHTML = `
+      <div class="review-stars">${stars}</div>
+      <p class="review-text">"${text}"</p>
+      <div class="review-author">
+        <div class="review-avatar">${initials}</div>
+        <div>
+          <div class="review-name">${name}</div>
+          <div class="review-meta">${service} · Just now</div>
+        </div>
+      </div>`;
+    document.getElementById('reviewsList').prepend(card);
+    document.getElementById('reviewName').value = '';
+    document.getElementById('reviewService').value = '';
+    document.getElementById('reviewText').value = '';
+    selectedStars = 0;
+    document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('active'));
+    const msg = document.getElementById('reviewSuccess');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
+  }
+
+  function submitBooking() {
+    const first = document.getElementById('bkFirstName').value.trim();
+    const contact = document.getElementById('bkContact').value.trim();
+    const service = document.getElementById('bkService').value;
+    const details = document.getElementById('bkDetails').value.trim();
+    if (!first || !contact || !service || !details) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    ['bkFirstName','bkLastName','bkContact','bkService','bkDate','bkLocation','bkDetails']
+      .forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+    const msg = document.getElementById('bookingSuccess');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 5000);
+  }
+</script>
+</body>
+</html>
